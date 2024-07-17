@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company Projects</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 1rem 0;
+            text-align: center;
+        }
+        .container {
+            padding: 2rem;
+        }
+        .summary, .form-section, .additional-info {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 1rem;
+            margin-bottom: 2rem;
+        }
+        .summary h2, .form-section h2, .additional-info h2 {
+            margin-top: 0;
+        }
+        .form-section form {
+            display: flex;
+            flex-direction: column;
+        }
+        .form-section label {
+            margin-bottom: 0.5rem;
+        }
+        .form-section input {
+            margin-bottom: 1rem;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .form-section input[type="submit"] {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        .form-section input[type="submit"]:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Project Page</h1>
+    </header>
+    <div class="container">
+        <section class="summary">
+            <h2>About Our Projects</h2>
+            <p>Welcome to our company projects page! Here, you can learn more about the innovative and exciting projects we are currently working on. Our goal is to drive progress and make a positive impact through our work.
+        <section class="form-section">
+            <h2>Contact Us</h2>
+            <form id="contactForm">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <input type="submit" value="Submit">
+            </form>
+        </section>
+        <section class="additional-info">
+            <h2>Project Information</h2>
+            <p>Introduces Serverless Email Marketing Application!</p>
+            <p>Starting today, businesses can use our new serverless email marketing application to improve your marketing campaigns. This application allows users to design, manage, and deploy email campaigns without the need for traditional server management and therefore this provides scalability, cost-efficiency and ease of use.</p>
+            <p>If you wish to register for our advertisement for upcoming projects and events please fill out the form above and you will be added to our contacts list!</p>
+        </section>
+    </div>
+
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+
+            fetch('https://2jmbjzry90.execute-api.eu-west-2.amazonaws.com/HostingWeb/update-csv', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ name, email }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('Success: ' + data.message);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
+</body>
+</html>
